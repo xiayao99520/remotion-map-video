@@ -1,0 +1,86 @@
+{
+  "title": "南宁美食路线",
+  "aspect": "9:16",
+  "fps": 30,
+  "stops": [
+    {
+      "name": "舒记粉店七星总店",
+      "lngLat": [
+        108.3285713,
+        22.8100759
+      ],
+      "address": "七星路44号",
+      "mode": "car",
+      "icon": "🍜"
+    },
+    {
+      "name": "三街两巷",
+      "lngLat": [
+        108.3159186,
+        22.8169481
+      ],
+      "mode": "walk",
+      "icon": "🏮"
+    },
+    {
+      "name": "梁阿婆廿年老牌扣肉糯米饭",
+      "lngLat": [
+        108.3068178,
+        22.8163457
+      ],
+      "address": "永宁街华兴里1-4号",
+      "mode": "walk",
+      "icon": "🍚"
+    },
+    {
+      "name": "水街老牌凉茶",
+      "lngLat": [
+        108.3095047,
+        22.8173774
+      ],
+      "address": "水街27号",
+      "mode": "car",
+      "icon": "🍵"
+    },
+    {
+      "name": "中山路夜市",
+      "lngLat": [
+        108.3182079,
+        22.8153312
+      ],
+      "mode": "metro",
+      "icon": "🌃"
+    },
+    {
+      "name": "冰神糖水铺",
+      "lngLat": [
+        108.3182634,
+        22.8153525
+      ],
+      "address": "中山路256-1号",
+      "mode": "train",
+      "icon": "🍧"
+    },
+    {
+      "name": "亭子码头",
+      "lngLat": [
+        108.3179781,
+        22.7945328
+      ],
+      "mode": "walk",
+      "icon": "⛴️"
+    }
+  ],
+  "lineStyle": "straight",
+  "closeZoom": 16.5,
+  "secondsPerLeg": 3,
+  "holdSeconds": 1,
+  "introSeconds": 1.5,
+  "outroSeconds": 2.5,
+  "mapStyle": "https://tiles.openfreemap.org/styles/liberty",
+  "colors": {
+    "line": "#ed7b20",
+    "marker": "#ed7b20"
+  },
+  "tilt": 50
+}

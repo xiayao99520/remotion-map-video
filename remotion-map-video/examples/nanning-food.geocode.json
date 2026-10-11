@@ -1,0 +1,95 @@
+{
+  "city": "南宁",
+  "bounds": {
+    "south": 22.2065209,
+    "north": 24.0347846,
+    "west": 107.3245594,
+    "east": 109.6181782
+  },
+  "rows": [
+    {
+      "name": "舒记粉店七星总店",
+      "address": "七星路44号",
+      "mode": "car",
+      "lngLat": [
+        108.3285713,
+        22.8100759
+      ],
+      "method": "street",
+      "matchedName": "七星路, 中山街道, 青秀区, 南宁市, 广西壮族自治区, 530021, 中国",
+      "sourceUrl": "https://www.openstreetmap.org/way/394074154"
+    },
+    {
+      "name": "三街两巷",
+      "mode": "walk",
+      "lngLat": [
+        108.3159186,
+        22.8169481
+      ],
+      "method": "name",
+      "matchedName": "三街两巷, 朝阳街道, 兴宁区, 南宁市, 广西壮族自治区, 中国",
+      "sourceUrl": "https://www.openstreetmap.org/way/908428559"
+    },
+    {
+      "name": "梁阿婆廿年老牌扣肉糯米饭",
+      "address": "永宁街华兴里1-4号",
+      "mode": "walk",
+      "lngLat": [
+        108.3068178,
+        22.8163457
+      ],
+      "method": "street",
+      "matchedName": "永宁街, 华强街道, 西乡塘区, 南宁市, 广西壮族自治区, 530000, 中国",
+      "sourceUrl": "https://www.openstreetmap.org/way/389194562"
+    },
+    {
+      "name": "水街老牌凉茶",
+      "address": "水街27号",
+      "mode": "car",
+      "lngLat": [
+        108.3095047,
+        22.8173774
+      ],
+      "method": "street",
+      "matchedName": "水街, 华强街道, 西乡塘区, 南宁市, 广西壮族自治区, 530000, 中国",
+      "sourceUrl": "https://www.openstreetmap.org/way/389194561"
+    },
+    {
+      "name": "中山路夜市",
+      "mode": "metro",
+      "lngLat": [
+        108.3182079,
+        22.8153312
+      ],
+      "method": "name",
+      "matchedName": "中山路夜市, 中山路, 中山街道, 青秀区, 南宁市, 广西壮族自治区, 530000, 中国",
+      "sourceUrl": "https://www.openstreetmap.org/node/5854865485"
+    },
+    {
+      "name": "冰神糖水铺",
+      "address": "中山路256-1号",
+      "mode": "train",
+      "lngLat": [
+        108.3182634,
+        22.8153525
+      ],
+      "method": "manual",
+      "matchedName": "用户指定 WGS-84 坐标（请自行核对依据）"
+    },
+    {
+      "name": "亭子码头",
+      "mode": "walk",
+      "lngLat": [
+        108.3179781,
+        22.7945328
+      ],
+      "method": "name",
+      "matchedName": "亭子码头, 福建园街道, 江南区, 南宁市, 广西壮族自治区, 中国",
+      "sourceUrl": "https://www.openstreetmap.org/way/1423783186"
+    }
+  ],
+  "stats": {
+    "requests": 0,
+    "cacheHits": 13
+  }
+}

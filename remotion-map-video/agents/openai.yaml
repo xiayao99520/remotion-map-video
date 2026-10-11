@@ -1,0 +1,4 @@
+interface:
+  display_name: "Remotion Map Video"
+  short_description: "Create configuration-driven map route videos from Chinese route text"
+  default_prompt: "Use ./remotion-map-video/SKILL.md to turn this route into a map video: 城市：杭州\n雷峰塔#🏯 车→柳浪闻莺走路→岳王庙"

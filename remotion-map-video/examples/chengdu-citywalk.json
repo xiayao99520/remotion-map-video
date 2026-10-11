@@ -1,0 +1,76 @@
+{
+  "title": "成都 Citywalk",
+  "aspect": "9:16",
+  "fps": 30,
+  "stops": [
+    {
+      "name": "宽窄巷子",
+      "lngLat": [
+        104.0510024,
+        30.6660531
+      ],
+      "address": "成都市青羊区宽巷子",
+      "mode": "walk",
+      "icon": "🏮"
+    },
+    {
+      "name": "小通巷",
+      "lngLat": [
+        104.0509409,
+        30.670241
+      ],
+      "address": "成都市青羊区小通巷（道路中心）",
+      "mode": "walk",
+      "icon": "🏘️"
+    },
+    {
+      "name": "人民公园",
+      "lngLat": [
+        104.05547,
+        30.65941
+      ],
+      "address": "成都市青羊区祠堂街",
+      "mode": "metro",
+      "icon": "🌳"
+    },
+    {
+      "name": "春熙路",
+      "lngLat": [
+        104.07819,
+        30.65735
+      ],
+      "address": "成都市锦江区红星路三段",
+      "mode": "car",
+      "icon": "🛍️"
+    },
+    {
+      "name": "太古里",
+      "lngLat": [
+        104.0811,
+        30.65571
+      ],
+      "address": "成都市锦江区中纱帽街",
+      "mode": "walk",
+      "icon": "🛍️"
+    },
+    {
+      "name": "大慈寺",
+      "lngLat": [
+        104.08117,
+        30.65669
+      ],
+      "address": "成都市锦江区大慈寺路",
+      "mode": "walk",
+      "icon": "🏯"
+    }
+  ],
+  "secondsPerLeg": 3,
+  "holdSeconds": 1,
+  "closeZoom": 16.5,
+  "tilt": 50,
+  "colors": {
+    "line": "#ed7b20",
+    "marker": "#ed7b20"
+  },
+  "outroSeconds": 2.5
+}

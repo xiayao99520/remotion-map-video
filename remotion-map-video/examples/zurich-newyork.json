@@ -1,0 +1,12 @@
+{
+  "title": "苏黎世 → 纽约",
+  "aspect": "16:9",
+  "fps": 30,
+  "stops": [
+    { "name": "苏黎世", "lngLat": [8.5417, 47.3769] },
+    { "name": "纽约", "lngLat": [-74.006, 40.7128] }
+  ],
+  "lineStyle": "greatCircle",
+  "secondsPerLeg": 3,
+  "holdSeconds": 1
+}

@@ -1,0 +1,40 @@
+{
+  "name": "remotion-map-video-template",
+  "version": "1.0.0",
+  "description": "配置驱动的地图路线视频模板",
+  "repository": {},
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "@turf/turf": "^7.4.0",
+    "maplibre-gl": "^6.13.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.534",
+    "@types/node": "^26.6.5",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.39.5",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render MapRoute out/map-route.mp4 --gl=angle --concurrency=4",
+    "lint": "eslint src scripts/*.ts && prettier --check src scripts remotion.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test src/MapRoute/*.test.ts src/config/*.test.ts src/route-text/*.test.ts",
+    "route": "node --experimental-strip-types scripts/route-from-text.ts",
+    "doctor": "node --experimental-strip-types scripts/doctor.ts",
+    "postinstall": "node scripts/copy-map-worker.mjs"
+  }
+}
