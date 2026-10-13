@@ -24,6 +24,7 @@ import {
 import { getGroundBounds } from "./tiltProjection";
 import { TILT_STYLE } from "./styles";
 import { getArrivalOffset } from "./labelMorph";
+import { waitForFonts } from "./fonts";
 
 export type ReadyPlate = {
   overview: PlateSize & { image: string; x: number; y: number; ratio: number };
@@ -53,6 +54,10 @@ export const useMapInstance = (
   );
   const [ready, setReady] = useState<ReadyPlate | null>(null);
   const instance = useRef<Map | null>(null);
+  // 等 ready 的 React 提交及 Img 的加载屏障建立后再放行，避免截到初始化中间态。
+  useEffect(() => {
+    if (ready) continueRender(loadingHandle);
+  }, [ready, continueRender, loadingHandle]);
   useEffect(() => {
     if (!container.current || instance.current) return;
     const started = performance.now();
@@ -111,6 +116,7 @@ export const useMapInstance = (
       });
     map.on("load", async () => {
       try {
+        await waitForFonts(config);
         for (const layer of map.getStyle().layers) {
           if (layer.type === "symbol" && layer.layout?.["text-field"]) {
             map.setLayoutProperty(layer.id, "text-field", [
@@ -232,7 +238,6 @@ export const useMapInstance = (
         console.info(
           `底图加载完成：近景 ${mosaic.tiles.length} 块，局部高清 ${localTiles.length} 块，${mosaic.zoom} 级，耗时 ${((performance.now() - started) / 1000).toFixed(2)} 秒`,
         );
-        continueRender(loadingHandle);
       } catch (error) {
         cancelRender(error);
       }

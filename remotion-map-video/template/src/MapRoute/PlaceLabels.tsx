@@ -68,7 +68,7 @@ export const PlaceLabels = ({
         state.phase === "overview"
           ? { visible: true, opacity: 1, popScale: 1 }
           : getStopAppearance(index, state, config);
-      if (!appearance.visible) return null;
+      if (!appearance.visible || appearance.opacity === 0) return null;
       if (!point.visible) return null;
       const placement = bubbleOffsets[index];
       const motion = getBubbleMotion(
@@ -106,16 +106,18 @@ export const PlaceLabels = ({
         >
           {layer === "bubbles" ? (
             <>
-              <g transform={`translate(${localPoint.x} ${localPoint.y})`}>
-                <PlaceBubble
-                  amount={index === state.stopIndex ? amount : 0}
-                  offsetX={placement.dx}
-                  motion={{
-                    ...motion,
-                    radius: motion.radius * appearance.popScale,
-                  }}
-                />
-              </g>
+              {active < 1 ? (
+                <g transform={`translate(${localPoint.x} ${localPoint.y})`}>
+                  <PlaceBubble
+                    amount={index === state.stopIndex ? amount : 0}
+                    offsetX={placement.dx}
+                    motion={{
+                      ...motion,
+                      radius: motion.radius * appearance.popScale,
+                    }}
+                  />
+                </g>
+              ) : null}
               {active === 0 ? (
                 <PlaceEmoji icon={icon} name={stop.name} position={bubble} />
               ) : null}
@@ -154,11 +156,11 @@ export const PlaceLabels = ({
   // 气泡在交通徽章下，文字仍在它上面；每站emoji仅在一个层里绘制，避免近点遮住人车。
   return (
     <>
-      <svg {...viewport} style={overlayStyle}>
+      <svg {...viewport} style={{ ...overlayStyle, zIndex: 1 }}>
         {renderStops("bubbles")}
       </svg>
       {badge}
-      <svg {...viewport} style={overlayStyle}>
+      <svg {...viewport} style={{ ...overlayStyle, zIndex: 3 }}>
         {renderStops("labels")}
       </svg>
     </>

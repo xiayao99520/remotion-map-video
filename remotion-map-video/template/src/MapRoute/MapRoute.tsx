@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { Fragment, useMemo, useRef } from "react";
 import { AbsoluteFill, Img, useCurrentFrame, useVideoConfig } from "remotion";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { MapConfig } from "../config/schema";
@@ -17,6 +17,7 @@ import { TILT_STYLE } from "./styles";
 import { layoutBubbleOffsets } from "./labels";
 import { getAttributionOpacity } from "./attribution";
 import { getBadgeOpacity } from "./bubbleAnimation";
+import { TEXT_FONT } from "./fonts";
 
 const MapScene = ({ config }: { config: MapConfig }) => {
   const frame = useCurrentFrame();
@@ -53,7 +54,9 @@ const MapScene = ({ config }: { config: MapConfig }) => {
       style={{
         backgroundColor: "#e8eef3",
         overflow: "hidden",
-        fontFamily: '"Microsoft YaHei", "PingFang SC", sans-serif',
+        fontFamily: TEXT_FONT,
+        textRendering: "geometricPrecision",
+        isolation: "isolate",
       }}
     >
       {/* 初始化容器不参与输出；普通 div 避免 Studio 干预 MapLibre 子节点。 */}
@@ -62,11 +65,13 @@ const MapScene = ({ config }: { config: MapConfig }) => {
         style={{ position: "absolute", ...plate, opacity: 0 }}
       />
       {ready && camera && badge ? (
-        <>
+        // 每帧新建展示层，避免 SVG 滤镜/3D 栅格缓存依赖本标签页之前渲染过哪些帧；地图实例不重建。
+        <Fragment key={frame}>
           <div
             style={{
               position: "absolute",
               ...viewport,
+              zIndex: 0,
               perspective: scene.perspective,
               perspectiveOrigin: `${scene.origin.x}px ${scene.origin.y}px`,
             }}
@@ -203,12 +208,13 @@ const MapScene = ({ config }: { config: MapConfig }) => {
               />
             }
           />
-        </>
+        </Fragment>
       ) : null}
       {config.title ? (
         <div
           style={{
             position: "absolute",
+            zIndex: 4,
             left: 48,
             top: 48,
             maxWidth: width - 96,
@@ -226,6 +232,7 @@ const MapScene = ({ config }: { config: MapConfig }) => {
       <div
         style={{
           position: "absolute",
+          zIndex: 4,
           right: 20,
           bottom: 20,
           fontSize: 20,

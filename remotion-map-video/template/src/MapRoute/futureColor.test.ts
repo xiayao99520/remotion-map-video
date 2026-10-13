@@ -2,9 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { lightenRouteColor } from "./futureColor.ts";
 import { parseMapConfig } from "../config/schema.ts";
-test("虚线颜色逐通道提亮60%，允许覆盖并校验格式", () => {
-  assert.equal(lightenRouteColor("#ed7b20"), "#f8caa6");
-  assert.equal(lightenRouteColor("#000000"), "#999999");
+test("虚线颜色逐通道提亮30%，允许覆盖并校验格式", () => {
+  assert.equal(lightenRouteColor("#ff5a1f"), "#ff8c62");
+  assert.equal(lightenRouteColor("#000000"), "#4d4d4d");
   assert.equal(lightenRouteColor("#FFFFFF"), "#ffffff");
   const stops = [
     { name: "甲", lngLat: [0, 0] },

@@ -1,5 +1,6 @@
 import { TRAVEL_MODES, type TravelMode } from "../config/travelModes";
 import { BADGE_RADIUS } from "./styles";
+import { EMOJI_FONT } from "./fonts";
 
 export const ModeBadge = ({
   x,
@@ -14,10 +15,12 @@ export const ModeBadge = ({
   opacity: number;
   scale?: number;
 }) => {
+  if (opacity === 0) return null;
   return (
     <div
       style={{
         position: "absolute",
+        zIndex: 2,
         left: x - BADGE_RADIUS,
         top: y - BADGE_RADIUS,
         width: BADGE_RADIUS * 2,
@@ -32,8 +35,7 @@ export const ModeBadge = ({
         transform: `scale(${scale})`,
         fontSize: 88,
         lineHeight: 1,
-        fontFamily:
-          '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif',
+        fontFamily: EMOJI_FONT,
       }}
       aria-label={TRAVEL_MODES[mode].label}
     >

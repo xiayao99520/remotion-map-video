@@ -36,8 +36,6 @@ export const BUBBLE_STYLE = {
   stemHeight: 24,
   // 小气泡字号低于卡片标题图标，到站时才能真正放大（标题图标为字号的1.2倍）。
   emojiRatio: 0.8,
-  floatPixels: 4,
-  floatSeconds: 1.8,
   arrivalSeconds: 0.3,
   shadow: "drop-shadow(0 8px 14px rgba(35,45,55,0.2))",
   labelGap: 16,

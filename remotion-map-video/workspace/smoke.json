@@ -1,0 +1,19 @@
+{
+  "title": "地图渲染环境检查",
+  "aspect": "9:16",
+  "fps": 30,
+  "introSeconds": 0.2,
+  "secondsPerLeg": 0.4,
+  "holdSeconds": 0.1,
+  "outroSeconds": 0.2,
+  "closeZoom": 16,
+  "stops": [
+    {
+      "name": "环境起点",
+      "lngLat": [104.051, 30.666],
+      "mode": "walk",
+      "icon": "📍"
+    },
+    { "name": "环境终点", "lngLat": [104.055, 30.664], "icon": "🏁" }
+  ]
+}

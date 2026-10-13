@@ -49,11 +49,11 @@ export const mapConfigSchema = z.object({
     .default("https://tiles.openfreemap.org/styles/liberty"),
   colors: z
     .object({
-      line: color.default("#ed7b20"),
+      line: color.default("#ff5a1f"),
       marker: color.default("#ed7b20"),
       future: color.optional(),
     })
-    .default({ line: "#ed7b20", marker: "#ed7b20" }),
+    .default({ line: "#ff5a1f", marker: "#ed7b20" }),
 });
 
 export type MapConfig = z.infer<typeof mapConfigSchema>;

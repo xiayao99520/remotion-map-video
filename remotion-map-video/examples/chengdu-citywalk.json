@@ -69,7 +69,7 @@
   "closeZoom": 16.5,
   "tilt": 50,
   "colors": {
-    "line": "#ed7b20",
+    "line": "#ff5a1f",
     "marker": "#ed7b20"
   },
   "outroSeconds": 2.5

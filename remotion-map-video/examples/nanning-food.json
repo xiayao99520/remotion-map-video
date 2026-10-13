@@ -79,7 +79,7 @@
   "outroSeconds": 2.5,
   "mapStyle": "https://tiles.openfreemap.org/styles/liberty",
   "colors": {
-    "line": "#ed7b20",
+    "line": "#ff5a1f",
     "marker": "#ed7b20"
   },
   "tilt": 50

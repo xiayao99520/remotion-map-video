@@ -98,14 +98,14 @@ export const RouteOverlay = ({
                 pulseOpacity: 0,
               }
             : getStopAppearance(index, state, config);
-        if (!appearance.visible) return null;
+        if (!appearance.visible || appearance.opacity === 0) return null;
         return (
           <g
             key={index}
             transform={`translate(${point.x},${point.y}) scale(${1 / scale})`}
             opacity={appearance.opacity}
           >
-            {appearance.next ? (
+            {appearance.next && appearance.pulseOpacity > 0 ? (
               <circle
                 r={MARKER_STYLE.nextRadius + appearance.pulseRadius}
                 fill="none"

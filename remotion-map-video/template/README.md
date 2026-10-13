@@ -66,7 +66,7 @@ npx remotion studio --props=../examples/zurich-newyork.json
 | `closeZoom` | 16.5 | 街道近景级别，允许 12–18；长路线实际级别自动降低 |
 | `stops[].address` | 无 | 可选地址，无地址时只显示地名 |
 | `stops[].mode` | `walk` | 从该点去下一点的方式：`walk` / `car` / `metro` / `train`；末站忽略 |
-| `colors` | 橙色 | 路线和景点圆点颜色；`future` 可覆盖虚线浅色，默认由路线色提亮 60% |
+| `colors` | 橙色 | 路线默认 `#ff5a1f`，圆点默认 `#ed7b20`；`future` 可覆盖虚线颜色，默认由路线色提亮 30% |
 | `attribution` | `end` | 片尾最后最多 2 秒淡入署名；`always` 全程显示 |
 
 每段行进为 `max(1, round(secondsPerLeg × fps))` 帧，停留为 `round(holdSeconds × fps)` 帧。开场推近、结尾各为 `max(2, round(对应秒数 × fps))` 帧。第一站推近完成后也停留一次，供卡片阅读：总帧数 = 开场推近 + 第一站停留 + 段数 ×（行进 + 停留）+ 结尾。默认五站 20 秒，两站 8 秒。零停留不弹卡片，仍保留开场和结尾；倒着拖时间轴也能恢复正确画面。

@@ -14,19 +14,24 @@ Use this skill only for a video that draws a route between places in order, foll
 
 ## Prepare once
 
-1. Check that `template/node_modules` exists. If it does not, run `npm ci` in `template/`.
-2. On first use or any environment error, run `npm run doctor` in `template/` and follow its table. It checks Node, dependencies, network, Chrome, and a real short render.
+1. Locate this `SKILL.md` and use its parent as the absolute `MAP_SKILL_ROOT`. Confirm `template/package-lock.json` exists; never create a replacement template. Check the OS and available command, file, and network tools.
+2. **Linux x86_64 remote workspace (including WSL validation)**: read [references/workspace-deployment.md](references/workspace-deployment.md) before setup. Run `python3 "<MAP_SKILL_ROOT>/workspace/bootstrap.py" --skill-root "<MAP_SKILL_ROOT>"`, then use the workspace entry below to render `workspace/smoke.json`. Check the real 1-second MP4 and extracted frames before proceeding. On Linux, a doctor `uv_interface_addresses` error also selects this branch. Other Linux architectures require separate validation.
+3. **Windows/macOS, or an ordinary local Linux host without that error**: if `template/node_modules` is missing, run `npm ci` in `template/`. On first use or any environment error, run `npm run doctor` and follow its table (Node, dependencies, network, Chrome, real short render). Do not run the Linux bootstrap on Windows/macOS.
 
 ## Standard workflow
 
 1. Get route text. If it has no `城市：...` line, ask the user for the city; never guess one.
 2. Create `map-videos/<name>/route.txt` as UTF-8 and preserve the text exactly.
 3. From `template/`, run `npm run route -- --input "<absolute>/map-videos/<name>/route.txt" --out "<absolute>/map-videos/<name>/route.json" --title "..."`. Add `--aspect 16:9` or `--aspect 1:1` only when requested.
-4. Show the route command's matching table exactly as printed. Ask only about street approximations, ❌ not found rows, ⚠ possible other-district warnings, and automatically chosen icons. Do not silently fix coordinates.
+4. Show the route command's matching table exactly as printed. Ask only about street approximations, ❌ not found rows, ⚠ possible other-district warnings, and automatically chosen icons; wait for those answers before rendering. Do not silently fix coordinates.
 5. If the user supplies a landmark, `@纬度,经度`, or `#emoji`, update `route.txt` and run the route command again. Never hand-edit coordinates or invent them.
 6. Render directly by default:
+   - Local branch, from `template/`:
    `npx remotion render MapRoute "<absolute>/map-videos/<name>/<name>.mp4" --props="<absolute>/map-videos/<name>/route.json" --gl=angle --concurrency=4`
-   Report the MP4's absolute path. Open Studio only if the user wants a preview: `npm run dev -- --props="<absolute>/map-videos/<name>/route.json"`.
+   - Linux workspace branch:
+   `node "<MAP_SKILL_ROOT>/workspace/workspace-remotion.cjs" render MapRoute "<absolute>/map-videos/<name>/<name>.mp4" --props="<absolute>/map-videos/<name>/route.json" --concurrency=1 --log=verbose`
+   Keep the render log in the same output directory. Open Studio only when requested, using `npm run dev -- --props="<absolute>/map-videos/<name>/route.json"` locally, or the workspace entry's `studio` command on Linux workspaces.
+7. Check the actual MP4's duration, dimensions and nonzero size with ffprobe; extract and view movement, arrival-card and ending frames for the map, Chinese labels and color emoji. Use the current environment's file-saving mechanism to persist the deliverable, then give a clickable link using its actual absolute path. A temporary download link alone does not prove persistence. If a check or save tool is unavailable, report that limitation.
 
 ## Allowed JSON adjustments
 
@@ -46,7 +51,7 @@ For complete defaults, limits, and examples, read [references/config.md](referen
 - **No city**: add `城市：...` or pass `--city`; do not infer it.
 - **No match**: make the place or nearby landmark more specific, or supply a verified `@纬度,经度`.
 - **Wrong district warning**: show the table and let the user correct the text; a city bounding box is not an exact administrative boundary.
-- **Slow or failed render**: run `npm run doctor`, then read [references/troubleshooting.md](references/troubleshooting.md).
+- **Slow or failed render**: follow the selected environment branch: workspace setup and smoke in [references/workspace-deployment.md](references/workspace-deployment.md), or local doctor and [references/troubleshooting.md](references/troubleshooting.md).
 - **Emoji is monochrome**: install/use a system color emoji font; this is a font limitation, not a route-coordinate issue.
 
 Remotion is free for individuals and companies with up to 3 people; larger companies need a commercial license.

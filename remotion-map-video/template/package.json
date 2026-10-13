@@ -35,6 +35,7 @@
     "test": "node --experimental-strip-types --test src/MapRoute/*.test.ts src/config/*.test.ts src/route-text/*.test.ts",
     "route": "node --experimental-strip-types scripts/route-from-text.ts",
     "doctor": "node --experimental-strip-types scripts/doctor.ts",
+    "check-determinism": "node --experimental-strip-types scripts/check-determinism.ts",
     "postinstall": "node scripts/copy-map-worker.mjs"
   }
 }

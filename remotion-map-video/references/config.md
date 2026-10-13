@@ -26,7 +26,7 @@ Each stop has `name` (non-empty), `lngLat` as `[longitude, latitude]`, optional 
 
 ## Colors
 
-`colors.line` and `colors.marker` default to `#ed7b20`; `colors.future` is optional and controls the pale dashed next-leg line. All colors must be six-digit hex values such as `#e8432e`.
+`colors.line` defaults to `#ff5a1f`; `colors.marker` defaults to `#ed7b20`. `colors.future` is optional and controls the dashed next-leg line; by default it mixes the route color with 30% white. All colors must be six-digit hex values such as `#e8432e`.
 
 ## Example
 

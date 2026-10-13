@@ -33,6 +33,13 @@
 - 能访问网络：npm、`tiles.openfreemap.org`（底图）、`nominatim.openstreetmap.org`（地名查坐标）
 - 第一次渲染时 Remotion 会自动下载一个无头 Chrome
 
+### 在远程 Linux 工作空间使用（例如 ChatGPT 工作空间）
+
+skill 自带 `workspace/` 脚本：自动安装依赖、中文和 emoji 字体、无头 Chrome，处理代理和软件渲染，并先渲染一段 1 秒的测试视频确认环境可用。AI 读 `SKILL.md` 时会自动判断环境并选择这条流程，详见 [references/workspace-deployment.md](remotion-map-video/references/workspace-deployment.md)。
+
+- 环境必须能执行命令、读写文件、访问网络；普通聊天窗口无法渲染视频。
+- 已在 Linux x86_64 + Remotion 4.0.534 下验证；升级 Remotion 后需要重新验证。
+
 ## 使用
 
 对 AI 说"用这段路线做个地图视频"，然后贴上语料。AI 会：

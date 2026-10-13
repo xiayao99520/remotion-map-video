@@ -10,6 +10,8 @@ test("只提供地点也能补齐默认配置，局部颜色也有默认值", ()
   const config = parseMapConfig({ stops, colors: { line: "#123456" } });
   assert.equal(config.fps, 30);
   assert.equal(config.colors.marker, "#ed7b20");
+  assert.equal(config.colors.line, "#123456");
+  assert.equal(parseMapConfig({ stops }).colors.line, "#ff5a1f");
   assert.equal(config.secondsPerLeg, 3);
 });
 test("错误位置与中文原因清楚可读", () => {

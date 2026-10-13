@@ -1,6 +1,6 @@
 import type { MapConfig } from "../config/schema.ts";
 import type { TimelineState } from "./timeline.ts";
-import { getTiming, smooth } from "./timeline.ts";
+import { smooth } from "./timeline.ts";
 import { BUBBLE_STYLE } from "./styles.ts";
 
 export const getBadgeOpacity = (state: TimelineState, config: MapConfig) =>
@@ -31,22 +31,6 @@ export const getBubbleMotion = (
     current && state.phase === "hold" && bounceProgress < 1
       ? 1 + 0.08 * Math.sin(Math.PI * bounceProgress)
       : 1;
-  const timing = getTiming(config);
-  const elapsed =
-    state.phase === "intro"
-      ? state.phaseFrame
-      : state.phase === "hold" && state.stopIndex === 0
-        ? timing.introMoveFrames + state.phaseFrame
-        : timing.introFrames +
-          state.legIndex * timing.legFrames +
-          state.phaseFrame +
-          (state.phase === "hold" ? timing.travelFrames : 0);
-  const float =
-    index > state.stopIndex
-      ? BUBBLE_STYLE.floatPixels *
-        Math.sin(
-          (elapsed / (config.fps * BUBBLE_STYLE.floatSeconds)) * Math.PI * 2,
-        )
-      : 0;
-  return { radius, centerY: -BUBBLE_STYLE.stemHeight - radius + float, bounce };
+  // 等待时保持位置；原来的 4px 正弦浮动在像素栅格上会表现为微抖。
+  return { radius, centerY: -BUBBLE_STYLE.stemHeight - radius, bounce };
 };

@@ -2,6 +2,8 @@
 
 Run these commands from the copied skill's `template/` directory.
 
+For Linux x86_64 remote workspaces or a Linux doctor `uv_interface_addresses` error, first read [workspace-deployment.md](workspace-deployment.md). Use its bootstrap, compatibility entry and real smoke check instead of relying on the local doctor. The doctor instructions below describe the local branch.
+
 ## `npm run doctor` failures
 
 - **Node**: install Node 22.18+; the template uses Node's native TypeScript execution.
@@ -24,3 +26,9 @@ OpenFreeMap is required at render time. If tiles fail, check the map URL and net
 ## Emoji
 
 Emoji rendering depends on the installed font. Keep the icon in the route text or JSON; install/use a color emoji font if the browser shows monochrome glyphs. The route and coordinates are still valid.
+
+## Video flickering
+
+Run `npm run check-determinism` from `template/`. It renders a short route with concurrency 1 and 4 and requires byte-identical lossless PNG frames. It uses a solid map background to isolate labels, emoji, cards and layering from online tile changes; it does not verify the live basemap. Logs, PNGs and the report stay in `out/determinism/<run>/` even on failure.
+
+For a real route, render the same JSON twice, extract matching frames with FFmpeg and inspect image differences. Video compression can produce small color differences; use PNG sequences (`--sequence --image-format=png`) for exact comparison. Keep failed frames and logs. The template waits for Chinese and emoji fonts, removes fully hidden card surfaces, and rebuilds the presentation layers each frame to avoid history-dependent SVG/3D raster caches. The MapLibre instance and captured map plates are retained. Do not move MapLibre per frame or edit the template as a workaround. Use a newly generated distribution when testing an older copied skill.

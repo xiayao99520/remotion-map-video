@@ -30,3 +30,18 @@ test("交通徽章到达前后与整个停留期间一直可见，气泡独立�
     BUBBLE_STYLE.nextRadius,
   );
 });
+
+test("下一站等待期间无微浮动，乱序求帧仍返回相同位置", () => {
+  const config = parseMapConfig({
+    stops: [
+      { name: "甲", lngLat: [1, 1] },
+      { name: "乙", lngLat: [2, 2] },
+    ],
+  });
+  const first = getBubbleMotion(1, getTimeline(90, config), config);
+  for (const frame of [120, 80, 140, 100, 90]) {
+    const motion = getBubbleMotion(1, getTimeline(frame, config), config);
+    assert.equal(motion.centerY, first.centerY);
+    assert.equal(motion.radius, first.radius);
+  }
+});
