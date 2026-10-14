@@ -57,7 +57,7 @@ ffmpeg -y -i "$OUTPUT_ROOT/smoke.mp4" -ss 0.5 -frames:v 1 "$OUTPUT_ROOT/smoke.pn
 # 在切换目录前取得当前任务的输出目录。
 ROUTE_DIR="$PWD/map-videos/my-route"
 cd "$MAP_SKILL_ROOT/template"
-npm run route -- --input "$ROUTE_DIR/route.txt" --out "$ROUTE_DIR/route.json" --title "路线标题"
+npm run route -- --input "$ROUTE_DIR/route.txt" --out "$ROUTE_DIR/route.json"
 node "$MAP_SKILL_ROOT/workspace/workspace-remotion.cjs" render MapRoute \
   "$ROUTE_DIR/my-route.mp4" --props="$ROUTE_DIR/route.json" \
   --concurrency=1 --log=verbose > "$ROUTE_DIR/render.log" 2>&1

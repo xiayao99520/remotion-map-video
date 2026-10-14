@@ -22,10 +22,11 @@ Use this skill only for a video that draws a route between places in order, foll
 
 1. Get route text. If it has no `城市：...` line, ask the user for the city; never guess one.
 2. Create `map-videos/<name>/route.txt` as UTF-8 and preserve the text exactly.
-3. From `template/`, run `npm run route -- --input "<absolute>/map-videos/<name>/route.txt" --out "<absolute>/map-videos/<name>/route.json" --title "..."`. Add `--aspect 16:9` or `--aspect 1:1` only when requested.
-4. Show the route command's matching table exactly as printed. Ask only about street approximations, ❌ not found rows, ⚠ possible other-district warnings, and automatically chosen icons; wait for those answers before rendering. Do not silently fix coordinates.
-5. If the user supplies a landmark, `@纬度,经度`, or `#emoji`, update `route.txt` and run the route command again. Never hand-edit coordinates or invent them.
-6. Render directly by default:
+3. If the user gives spoken natural-language route text, first rewrite it into `route.txt` syntax (`城市：...` plus stops and arrows). Do not expose a different format to the user.
+4. From `template/`, run `npm run route -- --input "<absolute>/map-videos/<name>/route.txt" --out "<absolute>/map-videos/<name>/route.json"`. Add `--aspect 16:9` or `--aspect 1:1` only when requested.
+5. Send the command's four-column Markdown table exactly as printed, then stop and wait for confirmation. Ask only about street approximations, ❌ not found rows, and ⚠ possible other-district warnings. Do not silently fix coordinates.
+6. If the user wants a change (place, address, emoji, or travel mode), edit `route.txt`, run the route command again, send the new table, and wait again. Never hand-edit coordinates or invent them.
+7. Render only after the user confirms:
    - Local branch, from `template/`:
    `npx remotion render MapRoute "<absolute>/map-videos/<name>/<name>.mp4" --props="<absolute>/map-videos/<name>/route.json" --gl=angle --concurrency=4`
    - Linux workspace branch:
@@ -35,7 +36,7 @@ Use this skill only for a video that draws a route between places in order, foll
 
 ## Allowed JSON adjustments
 
-The route command fills `title`, `aspect`, `fps`, and `stops`. You may adjust these validated fields in a copied JSON: `secondsPerLeg` (movement seconds per leg), `holdSeconds` (pause at each stop), `introSeconds`, `outroSeconds`, `closeZoom` (12–18), `tilt` (0–60 degrees), `lineStyle` (`straight` or `greatCircle`), `colors.line`, `colors.marker`, `colors.future`, `mapStyle`, and `attribution` (`end` or `always`). `stops[].mode` and `stops[].icon` are also configurable. Attribution cannot be disabled because OpenStreetMap data requires credit.
+The route command fills `aspect`, `fps`, and `stops`. You may adjust these validated fields in a copied JSON: `secondsPerLeg` (movement seconds per leg), `holdSeconds` (pause at each stop), `introSeconds`, `outroSeconds`, `closeZoom` (12–18), `tilt` (0–60 degrees), `lineStyle` (`straight` or `greatCircle`), `colors.line`, `colors.marker`, `colors.future`, `mapStyle`, and `attribution` (`end` or `always`). The legacy `title` field remains accepted for old JSON but is ignored. `stops[].mode` and `stops[].icon` are also configurable. Attribution cannot be disabled because OpenStreetMap data requires credit.
 
 For complete defaults, limits, and examples, read [references/config.md](references/config.md) when changing JSON. For full route syntax, read [references/route-text.md](references/route-text.md) when writing or correcting route text. Read [references/troubleshooting.md](references/troubleshooting.md) only when doctor, geocoding, map loading, rendering, or emoji issues occur.
 

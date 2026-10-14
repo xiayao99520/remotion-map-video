@@ -45,8 +45,8 @@ skill 自带 `workspace/` 脚本：自动安装依赖、中文和 emoji 字体�
 对 AI 说"用这段路线做个地图视频"，然后贴上语料。AI 会：
 
 1. 没写城市时先问你是哪座城市；
-2. 查坐标并给你一张核对表，只对"街道近似、找不到、离其他点太远"的地点提问；
-3. 渲染出 MP4，放在当前目录的 `map-videos/<名字>/` 下。
+2. 查坐标，给你一张固定格式的确认表（去哪儿 | 下面的字 | 图标 | 怎么去）。只有地点没找到、只定位到街道或可能找错区县时，表下才多一行提示；
+3. 等你确认后，再渲染出 MP4，放在当前目录的 `map-videos/<名字>/` 下。
 
 语料写法见 [references/route-text.md](remotion-map-video/references/route-text.md)，可调参数见 [references/config.md](remotion-map-video/references/config.md)。
 

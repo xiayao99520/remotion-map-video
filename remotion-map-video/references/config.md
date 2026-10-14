@@ -6,7 +6,7 @@ This reference mirrors the validated configuration schema; users of the skill sh
 
 | Field | Default | Valid values / range | Meaning |
 |---|---:|---|---|
-| `title` | `""` | string | Display title metadata. The route CLI defaults to `<city>路线`. |
+| `title` | `""` | string | Legacy compatibility field; accepted in old JSON but not displayed. |
 | `aspect` | `"9:16"` | `9:16`, `16:9`, `1:1` | Output dimensions 1080×1920, 1920×1080, or 1080×1080. |
 | `fps` | `30` | integer 1–120 | Frames per second. |
 | `stops` | required | at least 2 items | Ordered places; coordinates are `[lng, lat]`. |

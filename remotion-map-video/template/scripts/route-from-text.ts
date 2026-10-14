@@ -6,7 +6,6 @@ import { parseRouteText } from "../src/route-text/parse.ts";
 import {
   createGeocoder,
   findDistanceWarnings,
-  MATCH_LABELS,
 } from "../src/route-text/geocode.ts";
 import { parseMapConfig } from "../src/config/schema.ts";
 import { TRAVEL_MODES } from "../src/config/travelModes.ts";
@@ -20,7 +19,6 @@ const main = async () => {
       text: { type: "string" },
       out: { type: "string" },
       city: { type: "string" },
-      title: { type: "string" },
       aspect: { type: "string" },
     },
   });
@@ -40,11 +38,11 @@ const main = async () => {
   const city = values.city?.trim() || parsed.city;
   if (!city) throw new Error("请用 --city 南宁，或在语料第一行写 城市：南宁。");
   if (values.city && parsed.city && values.city !== parsed.city)
-    console.log(
+    console.error(
       `提示：命令行城市“${values.city}”覆盖语料城市“${parsed.city}”。`,
     );
-  parsed.warnings.forEach((warning) => console.log(`提示：${warning}`));
-  console.log(
+  parsed.warnings.forEach((warning) => console.error(`提示：${warning}`));
+  console.error(
     "Nominatim 公益服务：单机串行、最多每秒一请求、缓存复用；勿用于高频或定期批量查询。\n使用规则：https://operations.osmfoundation.org/policies/nominatim/",
   );
   const cachePath = fileURLToPath(
@@ -72,29 +70,29 @@ const main = async () => {
     const warningByIndex = new Map(
       distanceWarnings.map((warning) => [warning.index, warning]),
     );
-    console.table(
-      report.rows.map((row, index) => ({
-        序号: index + 1,
-        地名: row.name,
-        图标: row.icon,
-        交通:
-          index < report.rows.length - 1
-            ? TRAVEL_MODES[row.mode].emoji
-            : "终点",
-        匹配方式: MATCH_LABELS[row.method],
-        匹配名称: row.matchedName,
-        坐标经度纬度: row.lngLat?.join(", ") ?? "未找到",
-        警告: warningByIndex.has(index)
-          ? `⚠ 可能匹配到了别的区县（离其他点中心约 ${warningByIndex.get(index)!.distanceKm.toFixed(1)} km）`
-          : "",
-      })),
-    );
-    distanceWarnings.forEach((warning) =>
-      console.log(
-        `⚠ 可能匹配到了别的区县：第 ${warning.index + 1} 站“${warning.name}”离其他点中心约 ${warning.distanceKm.toFixed(1)} km。`,
-      ),
-    );
-    console.log(
+    console.log("| 去哪儿 | 下面的字 | 图标 | 怎么去 |");
+    console.log("| --- | --- | --- | --- |");
+    report.rows.forEach((row, index) => {
+      const address = row.address?.trim() || "—";
+      const travel =
+        index < report.rows.length - 1
+          ? `${TRAVEL_MODES[row.mode].emoji} ${TRAVEL_MODES[row.mode].label}`
+          : "终点";
+      console.log(`| ${row.name} | ${address} | ${row.icon} | ${travel} |`);
+    });
+    const problemRows = report.rows
+      .map((row, index) => {
+        if (!row.lngLat) return `第 ${index + 1} 站“${row.name}”未找到`;
+        if (warningByIndex.has(index))
+          return `第 ${index + 1} 站“${row.name}”可能匹配到了别的区县`;
+        if (row.method === "street")
+          return `第 ${index + 1} 站“${row.name}”只定位到街道（街道近似）`;
+        return null;
+      })
+      .filter((value): value is string => Boolean(value));
+    if (problemRows.length)
+      console.log(`需要确认的站：${problemRows.join("；")}`);
+    console.error(
       `请求 ${report.stats.requests} 次；缓存命中 ${report.stats.cacheHits} 次；耗时 ${((performance.now() - start) / 1000).toFixed(2)} 秒。`,
     );
     if (report.rows.some((row) => !row.lngLat))
@@ -102,7 +100,6 @@ const main = async () => {
         "有地点未找到，未写入路线 JSON。\n补救 1：写更具体的名称或附近地标。\n补救 2：用 @纬度,经度 手动指定 WGS-84（从谷歌地图或 OpenStreetMap 网站复制）。高德、百度复制的坐标有偏移，请勿直接使用。",
       );
     const config = parseMapConfig({
-      title: values.title ?? `${city}路线`,
       aspect: values.aspect ?? "9:16",
       stops: report.rows,
     });
@@ -114,7 +111,7 @@ const main = async () => {
       JSON.stringify({ city, ...report }, null, 2) + "\n",
       "utf8",
     );
-    console.log(
+    console.error(
       `已通过 zod 校验并写入 ${output}；匹配依据保存在同名 .geocode.json。街道近似只代表街道位置，请核对。`,
     );
   } finally {

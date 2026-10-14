@@ -210,25 +210,6 @@ const MapScene = ({ config }: { config: MapConfig }) => {
           />
         </Fragment>
       ) : null}
-      {config.title ? (
-        <div
-          style={{
-            position: "absolute",
-            zIndex: 4,
-            left: 48,
-            top: 48,
-            maxWidth: width - 96,
-            fontSize: 48,
-            fontWeight: 700,
-            color: "#172b3a",
-            backgroundColor: "rgba(255,255,255,0.88)",
-            padding: "18px 24px",
-            borderRadius: 16,
-          }}
-        >
-          {config.title}
-        </div>
-      ) : null}
       <div
         style={{
           position: "absolute",
